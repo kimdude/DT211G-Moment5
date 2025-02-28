@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Animation</title>
+    <link rel="stylesheet" href="scss/main.scss">
+    <script type="module" src="js/main.js"></script>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <!-- Menu button for mobile -->
+        <button class="menuButton open" id="openMenu">
+            <span class="menuIcon">
+                <span class="bars"></span>
+                <span class="bars"></span>
+                <span class="bars"></span>
+            </span>
+        </button>
+        <!-- Main menu -->
+        <nav id="navContainer">
+            <ul class="mainNav">
+                <li class="homePage">
+                    <a href="index.html">Startsida</a>
+                    <!-- Sub menu -->
+                    <ul class="subNav">
+                        <li>
+                            <a href="sass.html">SASS</a>
+                        </li>
+                </li>
+                <li>
+                    <a href="animation.html">Animation</a>
+                </li>
+                <li>
+                    <a href="chart.html">Diagram</a>
+                </li>
+                <li>
+                    <a href="map.html">Karta</a>
+                </li>
+                <li>
+                    <a href="#">Alternativ 5</a>
+                </li>
+            </ul>
+            <!-- Menu button for mobile -->
+            <button class="menuButton close" id="closeMenu">
+                <span class="menuIcon">
+                    <span class="bars cross1"></span>
+                    <span class="bars cross2"></span>
+                </span>
+            </button>
+        </nav>
+    </header>
+    <main>
+        <!-- Icon for loadingscreen -->
+        <div id="loadIcon">
+            <img src="images/loadingScreen.svg" alt="Loading.">
+        </div>
+        <!-- Section with content -->
+        <section>
+            <h1>Animationer</h1>
+            <h2>Text- eller bildanimation</h2>
+            <p>Skapad med transitions.</p>
+            <p class="neonSign">HOVER</p>
+            <h2>Rörliga objekt</h2>
+            <p>Skapad med @keyframes.</p>
+            <div id="animationContainer">
+                <div id="testKeyframe">
+                </div>
+            </div>
+            <h2>Användarinteraktion</h2>
+            <p>Skapad med @keyframes och transform.</p>
+            <button id="btn">Klicka här!</button>
+        </section>
+    </main>
+    <!-- Footer -->
+    <footer>
+        <p><strong>DT211G - Moment 5, CSS-preprocessorer</strong></p>
+        <p>Kim Dudenhöfer</p>
+        <p>2025-02-28</p>
+        <p><em>Bilder från Pexels.com</em></p>
+    </footer>
+</body>
+</html>

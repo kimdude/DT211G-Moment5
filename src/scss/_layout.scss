@@ -1,0 +1,163 @@
+@use "base";
+
+/* General */
+header {  
+    height: 100px;
+    background-color: base.$primary-color; 
+    display: flex;
+}
+
+body { 
+    margin: 0px;
+    padding: 0px;
+    background-color: base.$secondary-color; 
+}
+
+main {
+    max-width: 1200px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+footer {
+    padding: 20px 2% 20px 2%;
+    background-color: base.$primary-color; 
+    z-index: 1;
+}
+
+/* Navigation */
+nav {
+    z-index: 4;
+    width: fit-content;
+    margin-left: auto;
+
+    ul {
+        display: flex;
+        list-style-type: none;
+        margin: 0px;
+    }
+
+    li {
+        padding: 40px 20px 40px 20px;
+
+        ul {
+            display: none;
+            padding-left: 0px;
+        }
+
+        li {
+            padding: 40px 0px 0px 0px;
+        }
+
+        li::before { 
+            color: #fff; 
+            content: "→"; 
+        }
+
+        li:hover {
+            a {
+                text-decoration: underline;
+            }
+        }
+    }
+
+    li:hover {
+        background-color: darken(base.$primary-color, 20%);
+
+        ul {
+            display: flex;
+            flex-direction: column;
+        }
+    }
+}
+
+#closeMenu {
+    display: none;
+}
+
+#openMenu {
+    display: none;
+}
+
+/* Sections */
+section {
+    max-width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+    padding-top: 40px;
+    padding-bottom: 40px;
+}
+
+/* Home page */
+#homeSection {
+    display: flex;
+
+    div {
+        width: 70%;
+    }
+}
+
+/* Animation-page */
+#animationContainer {
+    width: 70%;
+    height: 150px;
+}
+
+#testKeyframe {
+    width: 50px;
+    height: 50px;
+    position: relative;
+    background-color: base.$primary-color;
+    border-radius: 50%;
+    animation-name: transformDiv;
+    animation-duration: 2s;
+    animation-direction: alternate;
+    animation-timing-function: ease-in-out;
+    animation-fill-mode: both;
+    animation-iteration-count: 4;
+}
+
+#loadIcon {
+    visibility: hidden;
+    display: flex;
+    position: fixed;
+    animation-name: load;
+    animation-duration: 2s;
+    animation-iteration-count: infinite;
+
+    img {
+        width: 80%;
+        margin-left: auto;
+        margin-right: auto;
+    }
+}
+
+/* Screens with dark-mode */
+@media (prefers-color-scheme: dark) {
+    header, footer { background-color: base.$primary-color-dm; }
+    body { background-color: base.$secondary-color-dm; }
+    nav {
+        li:hover { background-color: lighten(base.$primary-color-dm,15%); }
+    }
+}
+
+/* Screens under 800px*/
+@media screen and (max-width: 800px) {
+    #homeSection { display: block; 
+        div { width: 80%; margin-left: auto; margin-right: auto; margin-bottom: 40px; }
+    }
+}
+
+/* Screens under 640px*/
+@media screen and (max-width: 640px) {
+    #openMenu { display: block; }
+    #closeMenu { display: block; }
+    nav { display: none;
+        ul { flex-direction: column; padding-top: 20px; padding-bottom: 20px; background-color: base.$tertiary-color; }
+        li { padding: 20px 40px 20px 0px; 
+            ul { display: block; padding: 0 0 0 10px; background-color: base.$tertiary-color; }
+            li { padding: 15px 0px 0px 0px; }
+        }
+        li:hover { background-color: base.$tertiary-color; }
+    }
+}

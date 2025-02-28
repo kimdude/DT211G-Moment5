@@ -1,0 +1,148 @@
+@use "base";
+
+/* Text */
+p {
+    font-family: base.$main-fonts;
+    font-size: 1.1rem;
+    max-width: 70ch;
+    line-height: 1.5rem;
+}
+
+h1 {
+    font-family: base.$main-fonts;
+    font-size: 2rem;
+    font-weight: 600;
+}
+
+h2 {
+    font-family: base.$main-fonts;
+    font-size: 1.6rem;
+    font-weight: 600;
+}
+
+/* Links */
+a {
+    font-family: base.$main-fonts;
+    text-decoration: none;
+    color: #000;
+}
+
+nav {
+
+    a {
+        font-weight: 500;
+    }
+}
+
+section {
+    li {
+        @extend p;
+    }
+    a:hover {
+        text-decoration: underline;
+    }
+    a::after {
+        color: base.$primary-color; 
+        content: "►";
+        margin-left: 10px;
+    }
+}
+
+/* Main menu buttons */
+#closeMenu {
+    background-color: base.$tertiary-color;
+    border: none;
+    padding: 10px;
+}
+
+#openMenu {
+    background-color: base.$primary-color;
+    border: none;
+    margin-left: auto;
+    margin-right: 2%;
+}
+
+.menuIcon {
+    display: flex;
+    flex-direction: column;
+}
+
+.bars {
+    width: 25px;
+    height: 4px;
+    margin: 3px;
+    background-color: #000;
+}
+
+.cross1, .cross2 {
+    background-color: #fff;
+}
+
+.cross1 {
+    transform: rotate(140deg);
+}
+
+.cross2 {
+    transform: rotate(40deg);
+    margin-top: -7;
+}
+
+/* Pictures */
+/* Creating reusable function to rezise and shape */
+@mixin resize($width, $shape) {
+    width: $width;
+
+    @if $shape == "circle" {
+        height: $width;
+        border-radius: 50%;
+    } @else {
+        height: auto;
+        border-radius: 15px;
+    }
+}
+
+/* Using resize function for each class bleow */
+.pictureHorizontal {
+    @include resize(500px, "circle");
+}
+
+.sideBar {
+    @include resize(80%, "rectangle");
+    display: block;
+    margin-left: auto;
+}
+
+/* Hiding picture in light-mode */
+.pictureDM {
+    display: none;
+}
+
+/* Animation-page */
+#loadIcon {
+    @include resize(70px,circle);
+    background-color: base.$tertiary-color;
+}
+
+/* Screens with dark-mode */
+@media (prefers-color-scheme: dark) {
+    a, p, h1, h2 { color: #fff; }
+    #openMenu { background-color: base.$primary-color-dm; }
+    .bars { background-color: #fff; }
+
+    /* Switching picture in dark-mode */
+    .pictureDM { display: block; }
+    .pictureLM { display: none; }
+}
+
+/* Screens under 800px*/
+@media screen and (max-width: 800px) {
+    .sideBar { @include resize(300px, "circle"); margin-right: auto; }
+    .pictureHorizontal { @include resize(300px, "circle"); }
+}
+
+/* Screens under 640px*/
+@media screen and (max-width: 640px) {
+    nav { 
+        a { color: #fff; }
+    }
+}

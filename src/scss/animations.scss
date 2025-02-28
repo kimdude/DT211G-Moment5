@@ -1,0 +1,58 @@
+@use "base";
+
+/* Keyframe */
+@keyframes transformDiv {
+    0% {
+        bottom: -50%;
+        left: 0%;
+        box-shadow: -10px 5px 5px base.$primary-color-dm;
+    } 50% {
+        bottom: 50%;
+        left: 50%;
+        box-shadow: 0px 35px 5px base.$primary-color-dm;
+    } 100% {
+        bottom: -50%;
+        left: 100%;
+        box-shadow: 10px 5px 5px base.$primary-color-dm;
+    }
+}
+
+@keyframes load {
+    0% {
+        top: 50%;
+        left: 50%;
+        transform: rotate(0deg);
+    } 100% {
+        top: 50%;
+        left: 50%;
+        transform: rotate(360deg);
+    }
+}
+
+/* Transitions */
+.neonSign {
+    font-size: 5rem;
+    font-weight: 600;
+    color: base.$tertiary-color;
+    transition-property: color, text-shadow;
+    transition-duration: 2s;
+}
+
+.neonSign:hover {
+    color: base.$secondary-color;
+    text-shadow: 0px 0px 5px #fff,
+                0px 0px 9px #fff, 
+                0px 0px 25px #0093e2, 
+                0px 0px 35px #0093e2, 
+                0px 0px 50px #0093e2,
+                0px 0px 70px #0093e2,
+                0px 0px 90px #0093e2,
+                0px 0px 110px #0093e2;
+}
+
+/* Screens with dark-mode */
+@media (prefers-color-scheme: dark) {
+        /* Switching colors of glow */
+        .neonSign { color: base.$primary-color; }
+        .neonSign:hover { color: base.$secondary-color; text-shadow: 0px 0px 5px #fff, 0px 0px 9px #fff, 0px 0px 25px base.$primary-color, 0px 0px 35px base.$primary-color, 0px 0px 50px base.$primary-color, 0px 0px 70px base.$primary-color, 0px 0px 90px base.$primary-color, 0px 0px 110px base.$primary-color; }
+}

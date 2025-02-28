@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Startsida</title>
+    <link rel="stylesheet" href="scss/main.scss">
+    <script type="module" src="js/main.js"></script>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <!-- Menu button for mobile -->
+        <button class="menuButton open" id="openMenu">
+            <span class="menuIcon">
+                <span class="bars"></span>
+                <span class="bars"></span>
+                <span class="bars"></span>
+            </span>
+        </button>
+        <!-- Main menu -->
+        <nav id="navContainer">
+            <ul class="mainNav">
+                <li class="homePage">
+                    <a href="index.html">Startsida</a>
+                    <!-- Sub menu -->
+                    <ul class="subNav">
+                        <li>
+                            <a href="sass.html">SASS</a>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="animation.html">Animation</a>
+                </li>
+                <li>
+                    <a href="chart.html">Diagram</a>
+                </li>
+                <li>
+                    <a href="map.html">Karta</a>
+                </li>
+                <li>
+                    <a href="#">Alternativ 5</a>
+                </li>
+            </ul>
+            <!-- Menu button for mobile -->
+            <button class="menuButton close" id="closeMenu">
+                <span class="menuIcon">
+                    <span class="bars cross1"></span>
+                    <span class="bars cross2"></span>
+                </span>
+            </button>
+        </nav>
+    </header>
+    <main>
+        <!-- Section with content -->
+        <section id="homeSection">
+            <div>
+                <h1>Frontend-baserad webbutveckling</h1>
+                <h2>Om CSS-preprocessorer</h2>
+                <p>Med hjälp av CSS-preprocessorer kan CSS-kod skrivas mer effektivt och fler möjligheter finns med koden. Exempelivs kan CSS-preprocessorer
+                    användas för att skapa:</p>
+                <ul>
+                    <li>Variabler</li>
+                    <li>Color functions</li>
+                    <li>Nesting</li>
+                    <li>Mixins</li>
+                    <li>Och mycket mer...</li>
+                </ul>
+                <p> Dock har koden skapad med en CSS-preprocessor inget stöd i webbläsare och behöver i slutändan kompileras om. Om Parcel används för
+                    automatisering av utvecklingsmiljön är detta enkelt. Om en scss-fil inkluderas i HTML-koden använder Parcel automatiskt ett plugin, som kompilerar
+                    koden till css-kod. 
+                </p>
+                <a href="sass.html"><strong>Preprocessorn SASS</strong></a>
+            </div>
+            <!-- Picture -->
+            <picture>
+                <source srcset="images/coding.jpg?as=avif" type="image/avif" />
+                <source srcset="images/coding.jpg?as=webp" type="image/webp" />
+                <img src="images/coding.jpg" alt="CSS-kod på en skärm." class="sideBar">
+            </picture>
+        </section>
+    </main>
+    <!-- Footer -->
+    <footer>
+        <p><strong>DT211G - Moment 5, CSS-preprocessorer</strong></p>
+        <p>Kim Dudenhöfer</p>
+        <p>2025-02-28</p>
+        <p><em>Bilder från Pexels.com</em></p>
+    </footer>
+</body>
+</html>

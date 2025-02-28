@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SASS</title>
+    <link rel="stylesheet" href="scss/main.scss">
+    <script type="module" src="js/main.js"></script>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <!-- Menu button for mobile -->
+        <button class="menuButton open" id="openMenu">
+            <span class="menuIcon">
+                <span class="bars"></span>
+                <span class="bars"></span>
+                <span class="bars"></span>
+            </span>
+        </button>
+        <!-- Main menu -->
+        <nav id="navContainer">
+            <ul class="mainNav">
+                <li class="homePage">
+                    <a href="index.html">Startsida</a>
+                    <!-- Sub menu -->
+                    <ul class="subNav">
+                        <li>
+                            <a href="sass.html">SASS</a>
+                        </li>
+                </li>
+                <li>
+                    <a href="animation.html">Animation</a>
+                </li>
+                <li>
+                    <a href="chart.html">Diagram</a>
+                </li>
+                <li>
+                    <a href="map.html">Karta</a>
+                </li>
+                <li>
+                    <a href="#">Alternativ 5</a>
+                </li>
+            </ul>
+            <!-- Menu button for mobile -->
+            <button class="menuButton close" id="closeMenu">
+                <span class="menuIcon">
+                    <span class="bars cross1"></span>
+                    <span class="bars cross2"></span>
+                </span>
+            </button>
+        </nav>
+    </header>
+    <main>
+        <!-- Section with content -->
+        <section>
+            <h1>CSS-preprocessorer</h1>
+            <h2>SASS/SCSS utvärdering</h2>
+            <p>Att komma igång med SASS som CSS-preprocessor har varit förvånansvärt enkelt. Tack vare läsanvisningarna gick det smidigt och det blev inga större
+                svårigheter kring syntaxen för SCSS. Eftersom det är likt vanlig CSS är den lätthanterad och säkerligen väldigt användbar till stora projekt, där
+                det är stora mängder kod och mycket återupprepas.
+            </p>
+            <p>För just denna webbplatsen är det kanske lite väl med partials, mixins och if/else. Det blir krystat att hitta ett ställe att få användning av CSS-preprocessorernas
+                funktionalitet, men å andra sidan är det väldigt bra träning och skapar bättre förståelse. Något jag tyckte var svårt med SASS var just partials. Många gånger känns
+                det inte självklart i vilken partial en bit kod hör hemma. 
+            </p>
+            <p>Men det är en intressant och lämplig typ av programvara som jag vill lära mig mer om.</p>
+            <!-- Picture 1 -->
+            <picture class="pictureLM">
+                <source srcset="images/sassLogo.jpg?as=avif" type="image/avif" />
+                <source srcset="images/sassLogo.jpg?as=webp" type="image/webp" />
+                <img src="images/sassLogo.jpg" alt="CSS-kod på en skärm." class="pictureHorizontal">
+            </picture>
+            <!-- Picture 2 -->
+            <picture class="pictureDM">
+                <source srcset="images/sassLogoDm.jpg?as=avif&width=600" type="image/avif" />
+                <source srcset="images/sassLogoDm.jpg?as=webp&width=600" type="image/webp" />
+                <img src="images/sassLogoDm.jpg" alt="CSS-kod på en skärm." class="pictureHorizontal">
+            </picture>
+        </section>
+    </main>
+    <!-- Footer -->
+    <footer>
+        <p><strong>DT211G - Moment 5, CSS-preprocessorer</strong></p>
+        <p>Kim Dudenhöfer</p>
+        <p>2025-02-28</p>
+        <p><em>Bilder från Pexels.com</em></p>
+    </footer>
+</body>
+</html>
