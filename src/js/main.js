@@ -89,25 +89,22 @@ async function organiseData(sentData) {
     topCourses(allCourses);
 }
 
-//Selecting top 6 values from all programs
+//Selecting top 6 values from all programs and creating chart
 async function topPrograms(allPrograms) {
-    console.log(allPrograms);
-}
+    
+    const data = []
 
-//Selecting top 6 values from all courses
-async function topCourses(allCourses) {
-    console.log(allCourses);
-}
+    for(let i = 0; i < 6; i++) {
+        data.push(allPrograms[i]);
+    }
 
-//Create chart
-if(programs != null) {
     new Chart(programs, {
-        type: 'bar',
+        type: 'pie',
         data: {
-            labels: [],
+            labels: data.map(row => row.name),
             datasets: [{
-                label: 'Top 6 populäraste kurserna',
-                data: [],
+                label: '6 mest sökta programmen',
+                data: data.map(row => row.applicantsTotal),
                 borderWidth: 1
             }]
         },
@@ -115,4 +112,10 @@ if(programs != null) {
             backgroundColor: ['grey','black','darkred']
         }
     });
+    
+}
+
+//Selecting top 6 values from all courses
+async function topCourses(allCourses) {
+    console.log(allCourses);
 }
