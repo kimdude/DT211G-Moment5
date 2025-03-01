@@ -6,6 +6,7 @@ const mainMenu = document.getElementById("navContainer");
 const loadBtn = document.getElementById("btn");
 const loadIcon = document.getElementById("loadIcon");
 const programs = document.getElementById("programChart");
+const courses = document.getElementById("courseChart");
 
 window.onload = retrieveData();
 
@@ -109,7 +110,10 @@ async function topPrograms(allPrograms) {
             }]
         },
         options: {
-            backgroundColor: ['grey','black','darkred']
+            backgroundColor: ['#63dafc','#0bbd96','#1d719d','#6addc4','#082d41','#008f70'],
+            borderColor: ['#082d41'],
+            hoverBorderColor: '#064263',
+            hoverBorderWidth: 3,
         }
     });
     
@@ -117,5 +121,27 @@ async function topPrograms(allPrograms) {
 
 //Selecting top 6 values from all courses
 async function topCourses(allCourses) {
-    console.log(allCourses);
+    const data = []
+
+    for(let i = 0; i < 6; i++) {
+        data.push(allCourses[i]);
+    }
+
+    new Chart(courses, {
+        type: 'bar',
+        data: {
+            labels: data.map(row => row.name),
+            datasets: [{
+                label: '6 mest sökta kurserna',
+                data: data.map(row => row.applicantsTotal),
+                borderWidth: 1
+            }]
+        },
+        options: {
+            backgroundColor: ['#63dafc','#0bbd96','#1d719d','#6addc4','#082d41','#008f70'],
+            borderColor: ['#082d41'],
+            hoverBorderColor: '#064263',
+            hoverBorderWidth: 3,
+        }
+    });
 }
