@@ -64,8 +64,9 @@ async function retrieveData() {
     const data = await getData();
 
     const sortedData = data.sort((a,b) => b.applicantsTotal - a.applicantsTotal);
-   
-    organiseData(sortedData);
+
+        organiseData(sortedData);
+
 }
 
 //Organising data after type
@@ -95,28 +96,30 @@ async function topPrograms(allPrograms) {
     
     const data = []
 
-    for(let i = 0; i < 6; i++) {
+    for(let i = 0; i < 5; i++) {
         data.push(allPrograms[i]);
     }
-
-    new Chart(programs, {
-        type: 'pie',
-        data: {
-            labels: data.map(row => row.name),
-            datasets: [{
-                label: '6 mest sökta programmen',
-                data: data.map(row => row.applicantsTotal),
-                borderWidth: 1
-            }]
-        },
-        options: {
-            backgroundColor: ['#63dafc','#0bbd96','#1d719d','#6addc4','#082d41','#008f70'],
-            borderColor: ['#082d41'],
-            hoverBorderColor: '#064263',
-            hoverBorderWidth: 3,
-        }
-    });
     
+    if(programs !== null) {
+        new Chart(programs, {
+            type: 'pie',
+            data: {
+                labels: data.map(row => row.name),
+                datasets: [{
+                    label: '6 mest sökta programmen',
+                    data: data.map(row => row.applicantsTotal),
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                backgroundColor: ['#63dafc','#0bbd96','#1d719d','#6addc4','#082d41'],
+                borderColor: ['#082d41'],
+                hoverBorderColor: '#064263',
+                hoverBorderWidth: 3,
+            }
+        });
+        
+    }
 }
 
 //Selecting top 6 values from all courses
@@ -127,21 +130,23 @@ async function topCourses(allCourses) {
         data.push(allCourses[i]);
     }
 
-    new Chart(courses, {
-        type: 'bar',
-        data: {
-            labels: data.map(row => row.name),
-            datasets: [{
-                label: '6 mest sökta kurserna',
-                data: data.map(row => row.applicantsTotal),
-                borderWidth: 1
-            }]
-        },
-        options: {
-            backgroundColor: ['#63dafc','#0bbd96','#1d719d','#6addc4','#082d41','#008f70'],
-            borderColor: ['#082d41'],
-            hoverBorderColor: '#064263',
-            hoverBorderWidth: 3,
-        }
-    });
+    if(courses !== null) {
+        new Chart(courses, {
+            type: 'bar',
+            data: {
+                labels: data.map(row => row.name),
+                datasets: [{
+                    label: '6 mest sökta kurserna',
+                    data: data.map(row => row.applicantsTotal),
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                backgroundColor: ['#63dafc','#0bbd96','#1d719d','#6addc4','#082d41','#008f70'],
+                borderColor: ['#082d41'],
+                hoverBorderColor: '#064263',
+                hoverBorderWidth: 3,
+            }
+        });
+    }
 }
