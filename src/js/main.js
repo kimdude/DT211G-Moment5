@@ -1,4 +1,5 @@
 "use strict"
+
 //Fetching elements from html-document
 const openBtn = document.getElementById("openMenu");
 const closeBtn = document.getElementById("closeMenu");
@@ -41,7 +42,18 @@ function displayLoad() {
     }
 }
 
+
 //Fetching API with try/catch och async/await
+/**
+ * Hämtar data med fetchAPI och konverterar till JS-array.
+ * 
+ * @async getData
+ * @returns {Array} En JavaScript array med kurser och program.
+ * @var {string} response - Hämtar och sparar data från extern API med fetchAPI.
+ * @throws {Error} Om fetchAPI misslyckades.
+ * @var data - Konverterar och sparar datan som JS-array.
+ * 
+ */
 async function getData() {
     try {
         const response = await fetch('https://studenter.miun.se/~mallar/dt211g/');
@@ -56,10 +68,21 @@ async function getData() {
     } catch (error) {
         console.error('Fel har uppstått:', error.message);
     }
-
 }
 
+
 //Sorting data after applicantsTotal and sending to function organise
+/**
+ * Tar emot array och sorterar dess värden utifrån numeriska värden.
+ * 
+ * @async retrieveData
+ * @var data - Anropar funktion för att hämta arrayen med await/sync.
+ * @typedef {Array} sortedData - Sorterar och sparar den sorterade datan med sort().
+ * @function sort - Jämför alla värden i arrayen med varandra och sorterar dem i fallande ordning.
+ * @property {number} applicantsTotal - Totalt antal ansökningar på respektive kurs och program.
+ * @param {string} sortedData - Resultatet med en array sorterad i numerisk ordning.
+ * 
+ */
 async function retrieveData() {
     const data = await getData();
 
@@ -69,7 +92,25 @@ async function retrieveData() {
 
 }
 
-//Organising data after type
+
+//Organising data after type and pushing into seperate arrays
+/**
+ * Tar emot array och delar upp objekt utifrån typ av objekt.
+ * 
+ * @async organiseData
+ * @param {Array} sentData - Array med kurser och program.
+ * @var {Array} allPrograms - Sparar en tom array för program.
+ * @var {Array} allCourses - Sparar en tom array för kurser.
+ * @property {string} type - Definierar typ av objekt från arrayen.
+ * @method push - Lägger till objektet med vald typ i matchande array.
+ * 
+ * @function topPrograms - Skapar array med toplista och lägger till i diagram.
+ * @param {Array} allPrograms - Array med program.
+ * @param {string} programmen - Typ av utbildningar som arrayen innehåller.
+ * @param {number} - Antal utbildningar som toplistan ska innehålla.
+ * @param {string} programs - HTML canvas som toplistans diagram ska visas på.
+ * 
+ */
 async function organiseData(sentData) {
     const allPrograms = [];
     const allCourses = [];
@@ -87,26 +128,47 @@ async function organiseData(sentData) {
         }
     }
     
-    topPrograms(allPrograms);
-    topCourses(allCourses);
+    topPrograms(allPrograms, 'programmen', 5, 'pie', programs);
+    topPrograms(allCourses, 'kurserna', 6, 'bar', courses);
 }
 
-//Selecting top 6 values from all programs and creating chart
-async function topPrograms(allPrograms) {
+
+//Selecting top values from array and creating chart
+/**
+ * 
+ * @param {Array} allPrograms - Array med alla program.
+ * @var {Array} data - Sparar array för top 5 mest ansökta program.
+ * @method push - Lägger till de första 5 programmen i egen array.
+ * 
+ * @var programs - HTML canvas för att lägga till nytt diagram.
+ * @property {string} type - Typ av diagram.
+ * @property {object} data - Innehåller datan som diagrammet presenterar.
+ * @method map - Använder array med top 5 program och skapar ny array av programnamn och antal sökanden.
+ * @property {object} datasets - Specifierar datan som presenteras i diagrammet.
+ * @property {string} label - Namn på diagrammet.
+ * @property {number} borderWidth - Kantbredd på diagrammet.
+ * @property {object} options - Specifierar designalternativ av diagrammet.
+ * @property {string} backgroundColor - Bakgrundsfärg på varje block som presenterar data.
+ * @property {string} borderColor - Kantfärg på diagrammet.
+ * @property {string} hoverBorderColor - Kantfärg när musen förs över.
+ * @property {number} hoverBorderWidth - Kantbredd när musen förs över.
+ * 
+ */
+async function topPrograms(allPrograms, educationType, topLimit, type, canvas) {
     
     const data = []
 
-    for(let i = 0; i < 5; i++) {
+    for(let i = 0; i < topLimit; i++) {
         data.push(allPrograms[i]);
     }
     
-    if(programs !== null) {
-        new Chart(programs, {
-            type: 'pie',
+    if(canvas !== null) {
+        new Chart(canvas, {
+            type: type,
             data: {
                 labels: data.map(row => row.name),
                 datasets: [{
-                    label: '6 mest sökta programmen',
+                    label: topLimit + ' mest sökta ' + educationType,
                     data: data.map(row => row.applicantsTotal),
                     borderWidth: 1
                 }]
@@ -114,39 +176,10 @@ async function topPrograms(allPrograms) {
             options: {
                 backgroundColor: ['#63dafc','#0bbd96','#1d719d','#6addc4','#082d41'],
                 borderColor: ['#082d41'],
-                hoverBorderColor: '#064263',
+                hoverBorderColor: ['#064263'],
                 hoverBorderWidth: 3,
             }
         });
         
-    }
-}
-
-//Selecting top 6 values from all courses
-async function topCourses(allCourses) {
-    const data = []
-
-    for(let i = 0; i < 6; i++) {
-        data.push(allCourses[i]);
-    }
-
-    if(courses !== null) {
-        new Chart(courses, {
-            type: 'bar',
-            data: {
-                labels: data.map(row => row.name),
-                datasets: [{
-                    label: '6 mest sökta kurserna',
-                    data: data.map(row => row.applicantsTotal),
-                    borderWidth: 1
-                }]
-            },
-            options: {
-                backgroundColor: ['#63dafc','#0bbd96','#1d719d','#6addc4','#082d41','#008f70'],
-                borderColor: ['#082d41'],
-                hoverBorderColor: '#064263',
-                hoverBorderWidth: 3,
-            }
-        });
     }
 }
