@@ -189,19 +189,48 @@ async function topPrograms(allPrograms, educationType, topLimit, type, canvas) {
     }
 }
 
+
 //Checking if HTML div exists
 if(mapDiv !== null) {
 
-    //Adding eventlistener to input
     search.addEventListener('click', function() {
         fetchLocation(input.value);
     });
 
-    
+
     //Creating map
+    /**
+     * Skapar ny karta i HTML-filen.
+     * @method L.map - Initierar ny karta.
+     * @param mapDiv - Väljer HTML-elementet som kartan placeras i.
+     * 
+     * @method setView - Väljer koordinater och zoom-level kartan visar.
+     * @param {number} - Latitud från koordinaterna.
+     * @param {number} - Longitud från koordinaterna.
+     * @param {number} - Zoom-level.
+     * 
+     */
     let map = L.map(mapDiv).setView([62.3928714, 17.285290500000002],13);
+
+    /**
+     * Lägger till markör på kartan.
+     * @var marker - Variabel som refererar till markören.
+     * 
+     * @method L.marker - Skapar ny markör.
+     * @param {number} - Latitud från koordinaterna.
+     * @param {number} - Longitud från koordinaterna.
+     * @method addTo - Lägger till nytt lager för markören.
+     * 
+     */
     let marker = L.marker([62.3928714, 17.285290500000002]).addTo(map);
 
+    /**
+     * Ritar ut kartan i stycken.
+     * @method tileLayer - Skapar nytt lager med hjälp av url-mall.
+     * @property {number} maxZoom - Hur långt användare kan max zooma in på kartan.
+     * @property {string} attribution - Länk med attribution till utvecklarna bakom programvarorna.
+     * 
+     */
     L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
         maxZoom: 17,
         attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
@@ -209,8 +238,18 @@ if(mapDiv !== null) {
 
 
     //Fetching data to convert places into coordinates
+    /**
+     * Hämtar data med fetchAPI och konverterar till JS-array.
+     * 
+     * @async fetchLocation
+     * @var {string} response - Hämtar data med fetchAPI.
+     * @param search - Platsen användaren söker.
+     * @throws {Error} Om fetchAPI misslyckades.
+     * @var data - Konverterar och sparar datan som JS-array.
+     * @function sendLocation - Hämtar koordinater utifrån namn på en plats.
+     * 
+     */
     async function fetchLocation(search){
-
     try {
         const response = await fetch('https://nominatim.openstreetmap.org/search?format=json&q=' + search);
 
@@ -228,6 +267,16 @@ if(mapDiv !== null) {
 
 
     //Sending location data
+    /**
+     * @async sendLocation
+     * 
+     * @param {Array} location - Plats som användaren söker.
+     * @param place - Loopar igenom varje plats i arrayen.
+     * @property {number} lat - Skapar array av latitud för sökt plats.
+     * @property {number} lon - Skapar array av longitude för sökt plats.
+     * @function locate - Visar latitud och longitud på kartan.
+     * 
+     */
     async function sendLocation(location) {
 
     const latitude = location.map(place => place.lat);
@@ -238,6 +287,17 @@ if(mapDiv !== null) {
 
 
     //Creating a map
+    /**
+     * Flyttar kartan och markör till valda koordinater.
+     * @param {number} lat - Latitud.
+     * @param {number} lon - Longitud.
+     * 
+     * @method removeLayer - Tar bort lager.
+     * @method L.marker - Skapar ny markör.
+     * @method addTo - Lägger till nytt lager för markören.
+     * 
+     * @method flyTo - Flyttar på kartvyn.
+     */
     function locate(lat,lon) {
 
     map.removeLayer(marker);
