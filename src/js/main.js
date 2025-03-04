@@ -8,14 +8,24 @@ const loadBtn = document.getElementById("btn");
 const loadIcon = document.getElementById("loadIcon");
 const programs = document.getElementById("programChart");
 const courses = document.getElementById("courseChart");
+const input = document.getElementById("searchInput");
+const search = document.getElementById("searchBtn");
 
-window.onload = retrieveData();
+window.onload = () => {
+    retrieveData();
+} 
 
 //Checking value of null and adding eventlisteners if variable exists
 openBtn.addEventListener('click', displayMenu);
 closeBtn.addEventListener('click', displayMenu);
 if(loadBtn !== null) {
     loadBtn.addEventListener('click', displayLoad);
+}
+if(search !== null) {
+    search.addEventListener('click', function() {
+
+        fetchLocation(input.value);
+    });
 }
 
 //Toggle main menu i mobile-version
@@ -185,43 +195,52 @@ async function topPrograms(allPrograms, educationType, topLimit, type, canvas) {
 }
 
 
-//Creating a map
-let map = L.map("map").setView([61.300466, 17.043889],13);
+//Creating map
+    let map = L.map("map").setView([62.3928714, 17.285290500000002],13);
 
-L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
-    maxZoom: 17,
-    attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-}).addTo(map);
+    let marker = L.marker([62.3928714, 17.285290500000002]).addTo(map);
 
-let marker = L.marker([61.300466, 17.043889]).addTo(map);
-
-const popup = L.popup();
-
-map.on('click',onMapClick);
-
-function onMapClick(e) {
-    popup
-        .setLatLng(e.latlng)
-        .setContent("You clicked the map at " + e.latlng.toString())
-        .openOn(map);
-}
+    L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        maxZoom: 17,
+        attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+    }).addTo(map);
 
 
 //Fetching data to convert places into coordinates
-async function fetchLocation(){
+async function fetchLocation(search){
 
     try {
-        const response = await fetch('https://nominatim.openstreetmap.org/search?<params>');
+        const response = await fetch('https://nominatim.openstreetmap.org/search?format=json&q=' + search);
 
         if(!response.ok) {
-            throw new Error('Ett fel har uppträtt. Felaktigt svar från servern.')
+            throw new Error('Felaktigt svar från servern.')
         }
 
         const data = await response.json();
-        return data
+        sendLocation(data);
 
     } catch(error) {
         console.error('Ett fel har uppstått:', error.message)
     }
-    
+}
+
+
+//Sending location data
+async function sendLocation(location) {
+
+    const latitude = location.map(place => place.lat);
+    const longitude = location.map(place => place.lon);
+
+    locate(latitude[0],longitude[0]);
+}
+
+
+//Creating a map
+function locate(lat,lon) {
+
+    map.removeLayer(marker);
+    marker = L.marker([lat,lon]).addTo(map);
+
+    map.flyTo(new L.LatLng(lat,lon),13);
+
 }
