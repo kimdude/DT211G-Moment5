@@ -183,3 +183,45 @@ async function topPrograms(allPrograms, educationType, topLimit, type, canvas) {
         
     }
 }
+
+
+//Creating a map
+let map = L.map("map").setView([61.300466, 17.043889],13);
+
+L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    maxZoom: 17,
+    attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+}).addTo(map);
+
+let marker = L.marker([61.300466, 17.043889]).addTo(map);
+
+const popup = L.popup();
+
+map.on('click',onMapClick);
+
+function onMapClick(e) {
+    popup
+        .setLatLng(e.latlng)
+        .setContent("You clicked the map at " + e.latlng.toString())
+        .openOn(map);
+}
+
+
+//Fetching data to convert places into coordinates
+async function fetchLocation(){
+
+    try {
+        const response = await fetch('https://nominatim.openstreetmap.org/search?<params>');
+
+        if(!response.ok) {
+            throw new Error('Ett fel har uppträtt. Felaktigt svar från servern.')
+        }
+
+        const data = await response.json();
+        return data
+
+    } catch(error) {
+        console.error('Ett fel har uppstått:', error.message)
+    }
+    
+}
