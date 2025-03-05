@@ -132,6 +132,21 @@ section {
     }
 }
 
+/* Chart page */
+.chartDiv {
+    padding: 2%;
+    margin: 20px 0;
+    border-radius: 25px;
+    background-color: transparentize(base.$secondary-color, 0.2);
+}
+
+/*Map page*/
+#map {
+    z-index: 2;
+    height: 400px;
+    margin: 40px 2%;
+}
+
 /* Screens with dark-mode */
 @media (prefers-color-scheme: dark) {
     header, footer { background-color: base.$primary-color-dm; }
